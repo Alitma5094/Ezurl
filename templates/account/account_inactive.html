@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Account Inactive{% endblock %}
+
+{% block page %}
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="/" class="navbar-brand navbar-brand-autodark">
+                    <img src="{% static 'images/logo-text.svg' %}" width="110" height="32" alt="EZurl"
+                         class="navbar-brand-image">
+                </a>
+            </div>
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">Account Inactive</h2>
+                    <p>You may have deleted your account or violated our <a href="#">Terms of Service</a>. If you
+                        believe you are seeing this page in error, please
+                        contact support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock page %}

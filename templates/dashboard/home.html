@@ -1,0 +1,119 @@
+{% extends '_dashboard_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modals-here">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-2 align-items-center">
+        <div class="col-auto ms-auto d-print-none">
+            <div class="btn-list">
+                <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                   data-bs-target="#modal-report" hx-get="{% url 'dash_shorts_form' %}"
+                   hx-target="#modals-here"
+                   hx-trigger="click">
+                    <!-- Plus Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                    </svg>
+                    Create new URL
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-header d-print-none">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Your URLs</h2>
+            </div>
+            <div class="card-body">
+                {% if shortened_urls %}
+                    <div id="table-default" class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <button class="table-sort" data-sort="sort-name">URL</button>
+                                </th>
+                                <th>
+                                    <button class="table-sort desc" data-sort="sort-city">Destination</button>
+                                </th>
+                                <th>
+                                    <button class="table-sort" data-sort="sort-date">Date Created</button>
+                                </th>
+                                <th>
+                                    <button class="table-sort" data-sort="sort-quantity">Clicks</button>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-tbody">
+                            {% for url in shortened_urls %}
+                                <tr>
+                                    <td class="sort-name">ezurl.dev/r/{{ url.back_half }}</td>
+                                    <td class="sort-city"><a href="{{ url.redirect_url }}"
+                                                             target="_blank">{{ url.redirect_url }}</a>
+                                    </td>
+                                    <td class="sort-date"
+                                        data-date="{{ url.created_at.timestamp }}">{{ url.created_at }}</td>
+                                    <td class="sort-quantity">1234</td>
+                                    <td>
+                                        <a
+                                                data-bs-target="#modal-report" data-bs-toggle="modal"
+                                                hx-get="{% url 'dash_shorts_detail' url.id %}"
+                                                hx-target="#modals-here"
+                                                hx-trigger="click"
+                                        >
+                                            <!-- Menu Icon -->
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="icon icon-tabler icon-tabler-dots-vertical" width="24"
+                                                 height="24"
+                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                 stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                                <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                                <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                            </svg>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-center">Create a short to get started</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'dist/list.js/dist/list.min.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new List('table-default', {
+                sortClass: 'table-sort',
+                listClass: 'table-tbody',
+                valueNames: ['sort-name', 'sort-city',
+                    {attr: 'data-date', name: 'sort-date'},
+                    'sort-quantity'
+                ]
+            });
+        })
+    </script>
+{% endblock content %}

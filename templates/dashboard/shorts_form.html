@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+<form method="post" id="form">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title">
+            New URL
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+        {{ form|crispy }}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary ms-auto" type="submit"
+                hx-post="{% url 'dash_shorts_form' %}"
+                hx-target="#form">
+            <!-- Plus Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M12 5l0 14"/>
+                <path d="M5 12l14 0"/>
+            </svg>
+            Create new URL
+        </button>
+    </div>
+</form>
