@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "debug_toolbar",
     "django_htmx",
+    'qr_code',
     # Local
     "accounts",
     "pages",
