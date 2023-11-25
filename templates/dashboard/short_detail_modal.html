@@ -2,9 +2,9 @@
 {% load qr_code %}
 
 <div class="modal-header">
-    <h5 class="modal-title">
+    <h2 class="modal-title">
         URL Details
-    </h5>
+    </h2>
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 </div>
 <div class="modal-body">
@@ -12,18 +12,27 @@
         {% qr_from_text qr_url options=qr_options %}
         <p>Right-click or drag the QR code to save it to your computer.</p>
     </div>
-    <form hx-post="{% url 'dash_shorts_detail' short.id %}" hx-target="#modals-here">
+    <form hx-post="{% url 'dash_shorts_detail' short.id %}" hx-target="#modals-here" hx-trigger="change">
         {% csrf_token %}
-        <p>Customize qr code</p>
-        <div>
-            <label for="background">Background</label>
-            <input type="color" name="background-color" id="background" value="{{ default_values.background }}"/>
+        <h3>Customize QR code</h3>
+        <div class="row g-3 align-items-center">
+            <div class="col-3">
+                <label for="foreground" class="col-form-label">Foreground</label>
+            </div>
+            <div class="col-4">
+                <input type="color" id="foreground" class="form-control" name="foreground-color"
+                       value="{{ default_values.foreground }}" style="height: 40px">
+            </div>
         </div>
-        <div>
-            <label for="foreground">Foreground</label>
-            <input type="color" name="foreground-color" id="foreground" value="{{ default_values.foreground }}"/>
+        <div class="row g-3 align-items-center" style="margin-bottom: 5px">
+            <div class="col-3">
+                <label for="background" class="col-form-label">Background</label>
+            </div>
+            <div class="col-4">
+                <input type="color" id="background" class="form-control" name="background-color"
+                       value="{{ default_values.background }}" style="height: 40px">
+            </div>
         </div>
-        <input type="submit">
     </form>
 </div>
 <div class="modal-footer">
