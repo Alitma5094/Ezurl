@@ -1,22 +1,15 @@
-from allauth.account.models import EmailAddress
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from shorts.models import Short
 from .forms import ShortForm
 from django.contrib.auth.decorators import login_required
 from django_htmx.http import HttpResponseClientRefresh
-from django.views.decorators.http import require_POST, require_GET
-from allauth.account.forms import AddEmailForm
-from allauth.account import signals
-from allauth.account.adapter import get_adapter
-from django.contrib import messages
-
-import segno
+from django.views.decorators.http import require_POST
+from qr_code.qrcode.utils import QRCodeOptions
 
 
 @login_required()
 def home_view(request):
     shortened_urls = Short.objects.filter(user=request.user)
-    # qrcode = segno.make('https://www.simplifialltech.com/')
     form = ShortForm()
     return render(request, "dashboard/home.html", context={"shortened_urls": shortened_urls, "form": form})
 
@@ -36,12 +29,22 @@ def shorts_form_view(request):
 
 
 @login_required()
-@require_GET
 def short_detail_modal(request, pk):
     short = get_object_or_404(Short, id=pk)
-    qrcode = segno.make(f"ezurl.dev/r/{short.back_half}/")
+    if request.method == "POST":
+        short.background_color = request.POST.get("background-color")
+        short.foreground_color = request.POST.get("foreground-color")
+        short.save(update_fields=["foreground_color", "background_color"])
+
+    background_color = short.background_color
+    foreground_color = short.foreground_color
+
+    qr_options = QRCodeOptions(image_format="png", size="m", light_color=background_color, dark_color=foreground_color)
+    default_values = {"background": background_color, "foreground": foreground_color}
+
     return render(request, "dashboard/short_detail_modal.html",
-                  context={"short": short, "qrcode": qrcode.svg_data_uri(scale=6)})
+                  context={"short": short, "qr_options": qr_options, "default_values": default_values,
+                           "qr_url": f"https://ezurl.dev/r/{short.back_half}"})
 
 
 @login_required()

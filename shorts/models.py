@@ -15,3 +15,5 @@ class Short(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    foreground_color = models.CharField(max_length=7, default="#000000")
+    background_color = models.CharField(max_length=7, default="#ffffff")
