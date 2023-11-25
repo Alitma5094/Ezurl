@@ -11,4 +11,4 @@ class ShortForm(forms.ModelForm):
 
     class Meta:
         model = Short
-        exclude = ("user",)
+        exclude = ("user", "background_color", "foreground_color")

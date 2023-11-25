@@ -10,7 +10,7 @@
 <div class="modal-body">
     <div class="text-center">
         {% qr_from_text qr_url options=qr_options %}
-        <p>Right-click the code to save it to your computer.</p>
+        <p>Right-click or drag the QR code to save it to your computer.</p>
     </div>
     <form hx-post="{% url 'dash_shorts_detail' short.id %}" hx-target="#modals-here">
         {% csrf_token %}

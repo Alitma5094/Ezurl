@@ -32,11 +32,12 @@ def shorts_form_view(request):
 def short_detail_modal(request, pk):
     short = get_object_or_404(Short, id=pk)
     if request.method == "POST":
-        background_color = request.POST.get("background-color")
-        foreground_color = request.POST.get("foreground-color")
-    else:
-        background_color = "#ffffff"
-        foreground_color = "#000000"
+        short.background_color = request.POST.get("background-color")
+        short.foreground_color = request.POST.get("foreground-color")
+        short.save(update_fields=["foreground_color", "background_color"])
+
+    background_color = short.background_color
+    foreground_color = short.foreground_color
 
     qr_options = QRCodeOptions(image_format="png", size="m", light_color=background_color, dark_color=foreground_color)
     default_values = {"background": background_color, "foreground": foreground_color}
