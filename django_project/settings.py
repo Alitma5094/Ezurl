@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "pages",
     "shorts.apps.ShortsConfig",
     "dashboard.apps.DashboardConfig",
+    "payments.apps.PaymentsConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware

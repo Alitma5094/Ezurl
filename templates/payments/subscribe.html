@@ -4,13 +4,13 @@
     <h1>Subscribe</h1>
     {% if subscribed %}
         <p>Active Subscription</p>
-        <form method="POST" action="{% url 'dash_stripe_portal' %}">
+        <form method="POST" action="{% url 'payments_portal' %}">
             {% csrf_token %}
             <button class="btn btn-primary" type="submit">Manage Subscription</button>
         </form>
     {% else %}
         <p>Inactive Subscription</p>
-        <form method="POST">
+        <form method="POST" action="{% url 'payments_checkout' %}">
             {% csrf_token %}
             <button class="btn btn-primary" type="submit">Subscribe</button>
         </form>
