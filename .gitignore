@@ -17,3 +17,6 @@ staticfiles
 
 # IDE
 .idea
+
+# Docker
+docker-compose.yml

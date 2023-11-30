@@ -11,7 +11,7 @@ services:
     depends_on:
       - db
     environment:
-      - "DJANGO_SECRET_KEY=django-insecure-ZRGhxNNhQ0-C3RBRyQ_zE-TlgsKjq-JLQGcAPq_61R-GoUJvmXw"
+      - "DJANGO_SECRET_KEY=change-me"
       - "DJANGO_DEBUG=True"
       - "DJANGO_SECURE_SSL_REDIRECT=False"
       - "DJANGO_SECURE_HSTS_SECONDS=0"
@@ -19,6 +19,10 @@ services:
       - "DJANGO_SECURE_HSTS_PRELOAD=False"
       - "DJANGO_SESSION_COOKIE_SECURE=False"
       - "DJANGO_CSRF_COOKIE_SECURE=False"
+      - "STRIPE_PUBLIC_KEY=change-me"
+      - "STRIPE_SECRET_KEY=change-me"
+      - "STRIPE_WEBHOOK_SECRET=change-me"
+      - "STRIPE_PRICE_ID=change-me"
   db:
     image: postgres:13
     volumes:
