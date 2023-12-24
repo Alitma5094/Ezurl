@@ -55,6 +55,9 @@
                                     <button class="table-sort" data-sort="sort-date">Date Created</button>
                                 </th>
                                 <th>
+                                    <button class="table-sort" data-sort="sort-date">Custom</button>
+                                </th>
+                                <th>
                                     <button class="table-sort" data-sort="sort-quantity">Clicks</button>
                                 </th>
                                 <th></th>
@@ -67,8 +70,11 @@
                                     <td class="sort-city"><a href="{{ url.redirect_url }}"
                                                              target="_blank">{{ url.redirect_url }}</a>
                                     </td>
+                                    
                                     <td class="sort-date"
                                         data-date="{{ url.created_at.timestamp }}">{{ url.created_at }}</td>
+                                    <td class="sort">{{ url.custom_back_half }}
+                                    </td>
                                     <td class="sort-quantity">1234</td>
                                     <td>
                                         <a

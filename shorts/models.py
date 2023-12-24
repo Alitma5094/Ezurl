@@ -17,3 +17,4 @@ class Short(models.Model):
     )
     foreground_color = models.CharField(max_length=7, default="#000000")
     background_color = models.CharField(max_length=7, default="#ffffff")
+    custom_back_half = models.BooleanField(default=False)
