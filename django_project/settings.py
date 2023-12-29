@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from django.contrib import messages
 from environs import Env
 
@@ -16,7 +17,14 @@ DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 # ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
-ALLOWED_HOSTS = ["www.ezurl.dev", "ezurl.dev", "ezurl.fly.dev", "localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = [
+    "www.ezurl.dev",
+    "ezurl.dev",
+    "ezurl.fly.dev",
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = [
@@ -31,11 +39,12 @@ INSTALLED_APPS = [
     # Third-party
     "allauth",
     "allauth.account",
+    "anymail",
     "crispy_forms",
     "crispy_bootstrap5",
     "debug_toolbar",
     "django_htmx",
-    'qr_code',
+    "qr_code",
     # Local
     "accounts",
     "pages",
@@ -149,7 +158,11 @@ STORAGES = {
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+DEFAULT_FROM_EMAIL = env("FROM_EMAIL")
+ANYMAIL = {
+    "RESEND_API_KEY": env("RESEND_API_KEY"),
+}
 
 # https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -182,11 +195,11 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_PREVENT_ENUMERATION = False
 
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-info',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
+    messages.DEBUG: "alert-info",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
 }
 
 # django-debug-toolbar
