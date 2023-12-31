@@ -21,6 +21,7 @@ services:
       - "DJANGO_CSRF_COOKIE_SECURE=False"
       - "RESEND_API_KEY=change-me"
       - "FROM_EMAIL=change-me@example.com"
+      - "SENTRY_DSN=change-me"
   db:
     image: postgres:13
     volumes:
