@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Redirecting{% endblock %}
+
+{% block page %}
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="/" class="navbar-brand navbar-brand-autodark">
+                    <img src="{% static 'images/logo-text.svg' %}" width="110" height="32" alt="EZurl"
+                         class="navbar-brand-image">
+                </a>
+            </div>
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">Redirecting</h2>
+                    <p>You are being redirected to {{ redirect_url.redirect_url }}</p>
+                    <p>If you trust this site press <b>continue</b>, otherwise you can safely close this page.</p>
+                   <a href="{{ redirect_url.redirect_url }}" class="btn btn-primary w-100">
+                                Continue
+                            </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock page %}
